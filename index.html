@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power BI vs Tableau — Which One Should You Learn in 2026?</title>
+<meta name="description" content="A visual, honest breakdown of Power BI vs Tableau for 2026, built for beginners deciding which data visualization tool to learn first.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1116;
+    --surface:#161A22;
+    --surface-2:#1D2230;
+    --line: rgba(233,237,243,0.09);
+    --text:#E9EDF3;
+    --muted:#8890A0;
+    --gold:#F2C811;
+    --gold-dim: rgba(242,200,17,0.14);
+    --blue:#2B95E0;
+    --blue-dim: rgba(43,149,224,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0;
+    line-height:1.1;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,17,22,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:1180px; margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:1.05rem;
+    text-decoration:none; color:var(--text);
+  }
+  .brand-mark{
+    width:30px; height:30px; border-radius:8px;
+    background:linear-gradient(135deg, var(--gold) 0%, var(--gold) 49%, var(--blue) 51%, var(--blue) 100%);
+    flex-shrink:0;
+  }
+  nav.links{display:flex; gap:28px; align-items:center;}
+  nav.links a{
+    font-size:0.9rem; text-decoration:none; color:var(--muted);
+    transition:color .2s ease;
+  }
+  nav.links a:hover{color:var(--text);}
+  .nav-cta{
+    font-size:0.85rem; font-weight:600; padding:9px 18px; border-radius:999px;
+    background:var(--text); color:var(--ink); text-decoration:none;
+    transition:transform .2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px);}
+  #menu-toggle{display:none;}
+  .burger{display:none; cursor:pointer; padding:6px;}
+  .burger span{display:block; width:22px; height:2px; background:var(--text); margin:5px 0;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; min-height:92vh;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .hero-half{
+    position:absolute; top:0; bottom:0; width:52%;
+    display:flex; align-items:center;
+  }
+  .hero-half.gold{
+    left:0; background:linear-gradient(160deg, #171408 0%, var(--ink) 70%);
+    clip-path: polygon(0 0, 100% 0, 88% 100%, 0% 100%);
+    justify-content:flex-start;
+  }
+  .hero-half.blue{
+    right:0; background:linear-gradient(200deg, #071722 0%, var(--ink) 70%);
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+    justify-content:flex-end;
+  }
+  .side-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase;
+    writing-mode:vertical-rl;
+    padding:40px 18px;
+    opacity:0.55;
+  }
+  .gold .side-label{color:var(--gold);}
+  .blue .side-label{color:var(--blue); transform:rotate(180deg);}
+
+  .sparklines{position:absolute; inset:0; opacity:0.35; pointer-events:none;}
+
+  .hero-core{
+    position:relative; z-index:5; text-align:center; max-width:820px; padding:0 20px;
+  }
+  .vs-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace; font-size:0.75rem; letter-spacing:0.16em;
+    padding:7px 16px; border-radius:999px; border:1px solid var(--line);
+    background:var(--surface); color:var(--muted); margin-bottom:26px;
+  }
+  .vs-badge .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 0 rgba(242,200,17,0.6);
+    animation:pulse 2.2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(242,200,17,0.55);}
+    70%{box-shadow:0 0 0 10px rgba(242,200,17,0);}
+    100%{box-shadow:0 0 0 0 rgba(242,200,17,0);}
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 5.6vw, 4.4rem);
+    font-weight:700; letter-spacing:-0.02em;
+  }
+  .hero h1 .gold-txt{color:var(--gold);}
+  .hero h1 .blue-txt{color:var(--blue);}
+  .hero p{
+    margin:22px auto 0; max-width:560px; color:var(--muted);
+    font-size:1.05rem; line-height:1.65;
+  }
+  .hero-actions{
+    margin-top:36px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'Inter', sans-serif; font-weight:600; font-size:0.92rem;
+    padding:13px 26px; border-radius:10px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn.primary{background:var(--gold); color:#141200;}
+  .btn.primary:hover{transform:translateY(-3px); box-shadow:0 10px 24px rgba(242,200,17,0.25);}
+  .btn.secondary{background:var(--blue); color:#04121C;}
+  .btn.secondary:hover{transform:translateY(-3px); box-shadow:0 10px 24px rgba(43,149,224,0.25);}
+  .scroll-cue{
+    position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+    font-family:'JetBrains Mono', monospace; font-size:0.68rem; color:var(--muted);
+    letter-spacing:0.14em; text-align:center;
+  }
+  .scroll-cue .line{
+    width:1px; height:34px; background:linear-gradient(var(--gold), var(--blue));
+    margin:8px auto 0; animation:drop 1.8s infinite;
+  }
+  @keyframes drop{0%{opacity:0; transform:translateY(-6px);}50%{opacity:1;}100%{opacity:0; transform:translateY(10px);}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:104px 0;}
+  .section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
+  .section-head h2{font-size:clamp(1.7rem, 3.4vw, 2.4rem); margin-top:10px;}
+  .section-head p{color:var(--muted); margin-top:14px; line-height:1.6;}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- FACE OFF ---------- */
+  .faceoff{
+    display:grid; grid-template-columns:1fr 1fr; gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:18px; overflow:hidden;
+  }
+  .face{background:var(--surface); padding:38px 34px;}
+  .face .tag{
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; letter-spacing:0.14em;
+    text-transform:uppercase; padding:5px 12px; border-radius:999px; display:inline-block;
+  }
+  .face.pbi .tag{background:var(--gold-dim); color:var(--gold);}
+  .face.tab .tag{background:var(--blue-dim); color:var(--blue);}
+  .face h3{margin-top:16px; font-size:1.35rem;}
+  .face p{color:var(--muted); line-height:1.7; margin-top:14px; font-size:0.96rem;}
+
+  /* ---------- STAT DASHBOARD ---------- */
+  .stat-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;
+  }
+  .stat-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:24px 22px; position:relative; overflow:hidden;
+  }
+  .stat-card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:3px;
+  }
+  .stat-card.g::before{background:var(--gold);}
+  .stat-card.b::before{background:var(--blue);}
+  .stat-card .eyebrow{margin-bottom:10px;}
+  .stat-card h4{
+    font-family:'Space Grotesk', sans-serif; font-size:1.5rem; margin:0 0 8px;
+  }
+  .stat-card p{color:var(--muted); font-size:0.85rem; line-height:1.55; margin:0;}
+
+  /* ---------- CARD GRIDS (links) ---------- */
+  .card-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px;}
+  .card-grid.triple{grid-template-columns:repeat(3, 1fr);}
+  .link-card{
+    display:block; text-decoration:none; color:var(--text);
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:28px 26px; position:relative; overflow:hidden;
+    transition:transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .link-card:hover{transform:translateY(-6px); background:var(--surface-2);}
+  .link-card.gold:hover{border-color:var(--gold);}
+  .link-card.blue:hover{border-color:var(--blue);}
+  .icon-badge{
+    width:44px; height:44px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+  }
+  .link-card.gold .icon-badge{background:var(--gold-dim);}
+  .link-card.blue .icon-badge{background:var(--blue-dim);}
+  .icon-badge svg{width:22px; height:22px;}
+  .link-card.gold .icon-badge svg{stroke:var(--gold);}
+  .link-card.blue .icon-badge svg{stroke:var(--blue);}
+  .link-card h4{font-size:1.08rem; font-weight:600; margin-bottom:8px; line-height:1.4;}
+  .link-card p{color:var(--muted); font-size:0.86rem; margin:0 0 20px; line-height:1.55;}
+  .card-cta{
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:0.08em;
+    text-transform:uppercase; display:inline-flex; align-items:center; gap:6px;
+  }
+  .link-card.gold .card-cta{color:var(--gold);}
+  .link-card.blue .card-cta{color:var(--blue);}
+  .card-cta svg{width:13px; height:13px; transition:transform .25s ease;}
+  .link-card:hover .card-cta svg{transform:translate(3px,-3px);}
+
+  .blog-card{
+    display:block; text-decoration:none; color:var(--text);
+    background:linear-gradient(180deg, var(--surface) 0%, var(--surface) 100%);
+    border:1px solid var(--line); border-radius:16px; padding:26px;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .blog-card:hover{transform:translateY(-6px); border-color:var(--text);}
+  .blog-card .eyebrow{margin-bottom:14px;}
+  .blog-card h4{font-size:1rem; line-height:1.45; font-weight:600;}
+  .blog-card .card-cta{margin-top:18px; color:var(--text); opacity:0.7;}
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band{
+    margin:0 24px; border-radius:24px;
+    background:linear-gradient(120deg, rgba(242,200,17,0.12), rgba(43,149,224,0.12));
+    border:1px solid var(--line);
+    padding:70px 40px; text-align:center;
+  }
+  .cta-band h2{font-size:clamp(1.6rem, 3.2vw, 2.2rem);}
+  .cta-band p{color:var(--muted); max-width:520px; margin:16px auto 0; line-height:1.6;}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line); padding:64px 0 32px; margin-top:60px;}
+  .foot-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; padding-bottom:44px;
+  }
+  .foot-brand p{color:var(--muted); font-size:0.9rem; line-height:1.6; margin-top:14px; max-width:280px;}
+  .foot-col .eyebrow{margin-bottom:16px;}
+  .foot-col ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:11px;}
+  .foot-col a{color:var(--muted); text-decoration:none; font-size:0.9rem; transition:color .2s ease;}
+  .foot-col a:hover{color:var(--text);}
+  .foot-bottom{
+    border-top:1px solid var(--line); padding-top:24px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    font-size:0.8rem; color:var(--muted);
+  }
+
+  @media (max-width:860px){
+    nav.links{display:none;}
+    .burger{display:block;}
+    .hero-half{width:100%; clip-path:none !important; position:relative; opacity:0.5;}
+    .hero{flex-direction:column; min-height:auto; padding:120px 0 80px;}
+    .faceoff{grid-template-columns:1fr;}
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .card-grid, .card-grid.triple{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr; gap:30px;}
+    .side-label{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="brand">
+      <span class="brand-mark"></span>
+      JustAcademy
+    </a>
+    <nav class="links">
+      <a href="#faceoff">The Face Off</a>
+      <a href="#numbers">The Numbers</a>
+      <a href="#courses">Start Learning</a>
+      <a href="#reads">Go Deeper</a>
+    </nav>
+    <a class="nav-cta" href="#courses">Explore Courses</a>
+    <div class="burger" onclick="document.querySelector('nav.links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-half gold">
+    <span class="side-label">POWER BI · MICROSOFT</span>
+  </div>
+  <div class="hero-half blue">
+    <span class="side-label">TABLEAU · SALESFORCE</span>
+  </div>
+  <svg class="sparklines" viewBox="0 0 1200 800" preserveAspectRatio="none">
+    <polyline points="40,600 110,540 180,580 250,460 320,510 390,400 460,440" fill="none" stroke="#F2C811" stroke-width="2" opacity="0.5"/>
+    <polyline points="60,700 130,660 200,690 270,610 340,650 410,560 480,600" fill="none" stroke="#F2C811" stroke-width="2" opacity="0.3"/>
+    <polyline points="740,430 810,470 880,410 950,460 1020,380 1090,420 1160,340" fill="none" stroke="#2B95E0" stroke-width="2" opacity="0.5"/>
+    <polyline points="720,560 790,600 860,540 930,580 1000,500 1070,540 1140,470" fill="none" stroke="#2B95E0" stroke-width="2" opacity="0.3"/>
+  </svg>
+
+  <div class="hero-core">
+    <span class="vs-badge"><span class="dot"></span> THE 2026 CROSSROADS FOR EVERY DATA ANALYST</span>
+    <h1><span class="gold-txt">Power BI</span> vs <span class="blue-txt">Tableau</span><br>Which One Should You Learn?</h1>
+    <p>Two tools. Two very different ways of thinking. One decision that quietly shapes your first job in analytics. Here is the honest, visual breakdown, minus the confusing YouTube rabbit hole.</p>
+    <div class="hero-actions">
+      <a href="https://www.justacademy.co/course-detail/mumbai/microsoft-power-bi-training-in-mumbai" class="btn primary" target="_blank" rel="noopener">Start with Power BI →</a>
+      <a href="https://www.justacademy.co/course-detail/mumbai/tableau-training-in-mumbai" class="btn secondary" target="_blank" rel="noopener">Start with Tableau →</a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">SCROLL<div class="line"></div></div>
+</section>
+
+<section id="faceoff">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">01 · The Face Off</span>
+      <h2>Same goal, completely different personalities</h2>
+      <p>Both tools turn messy numbers into something a human can actually understand. How they get you there is where the real difference lives.</p>
+    </div>
+
+    <div class="faceoff reveal">
+      <div class="face pbi">
+        <span class="tag">Structured Thinker</span>
+        <h3>Power BI feels like coming home to Excel</h3>
+        <p>Familiar grids, guided report building, and DAX formulas that reward people who like following a clear process. If your brain already thinks in rows and columns, this is the gentler runway with faster early wins.</p>
+      </div>
+      <div class="face tab">
+        <span class="tag">Visual Explorer</span>
+        <h3>Tableau hands you a blank canvas</h3>
+        <p>No template holding your hand. Just dimensions, measures, and a drag and drop canvas that rewards curiosity. The first two weeks feel humbling, then it quietly becomes the most fun part of your day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="numbers">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">02 · The Numbers</span>
+      <h2>What the market is actually telling you</h2>
+      <p>A quick dashboard view of the four things beginners genuinely care about.</p>
+    </div>
+
+    <div class="stat-grid reveal">
+      <div class="stat-card g">
+        <span class="eyebrow">Pricing</span>
+        <h4>Power BI wins on budget</h4>
+        <p>Pro and Premium tiers are typically cheaper, which is why most small and mid sized companies pick it first.</p>
+      </div>
+      <div class="stat-card b">
+        <span class="eyebrow">Salary</span>
+        <h4>Tableau edges ahead in niche roles</h4>
+        <p>Fewer specialists means client facing and consulting roles sometimes pay a little more for deep Tableau skill.</p>
+      </div>
+      <div class="stat-card g">
+        <span class="eyebrow">Hiring Volume</span>
+        <h4>Power BI dominates India listings</h4>
+        <p>Thanks to how many companies already run on the Microsoft stack across finance, retail, and IT services.</p>
+      </div>
+      <div class="stat-card b">
+        <span class="eyebrow">Best Fit For</span>
+        <h4>Tableau suits storytellers</h4>
+        <p>Consulting, marketing, and any client facing role where a beautifully built dashboard changes the conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="courses">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">03 · Start Learning</span>
+      <h2>Pick a lane and actually begin</h2>
+      <p>Structured, live, mentor led programs built in Mumbai for exactly this decision.</p>
+    </div>
+
+    <div class="card-grid reveal">
+      <a class="link-card gold" href="https://www.justacademy.co/course-detail/mumbai/microsoft-power-bi-training-in-mumbai" target="_blank" rel="noopener">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg></div>
+        <h4>Power BI Training in Mumbai</h4>
+        <p>Excel logic, DAX formulas, and report building for the structured thinkers ready to move fast.</p>
+        <span class="card-cta">Explore the course <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></span>
+      </a>
+
+      <a class="link-card blue" href="https://www.justacademy.co/course-detail/mumbai/tableau-training-in-mumbai" target="_blank" rel="noopener">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+        <h4>Tableau Training in Mumbai</h4>
+        <p>Canvas based dashboard design for people who think visually and love a good story in the data.</p>
+        <span class="card-cta">Explore the course <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></span>
+      </a>
+
+      <a class="link-card gold" href="https://www.justacademy.co/job-bootcamp-detail/mumbai/data-analytics-bootcamp-in-mumbai-classroom-training-with-real-world-projects" target="_blank" rel="noopener">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg></div>
+        <h4>Data Analytics Bootcamp, Mumbai</h4>
+        <p>SQL, Excel, Power BI, and Tableau pulled into one job focused track with real world projects.</p>
+        <span class="card-cta">See the bootcamp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></span>
+      </a>
+
+      <a class="link-card blue" href="https://www.justacademy.co/course-detail/mumbai/figma-training-in-mumbai" target="_blank" rel="noopener">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div>
+        <h4>Figma Training in Mumbai</h4>
+        <p>The design instincts, color, spacing, hierarchy, that turn a functional dashboard into a memorable one.</p>
+        <span class="card-cta">Explore the course <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="reads">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">04 · Go Deeper</span>
+      <h2>A few reads worth bookmarking</h2>
+      <p>Longer breakdowns for whenever you want more than a dashboard summary.</p>
+    </div>
+
+    <div class="card-grid triple reveal">
+      <a class="blog-card" href="https://www.justacademy.co/blog-detail/power-bi-developer-roadmap-2026-skills-required-to-become-a-data-analyst" target="_blank" rel="noopener">
+        <span class="eyebrow">Roadmap</span>
+        <h4>Power BI Developer Roadmap 2026: Skills You Actually Need</h4>
+        <span class="card-cta">Read the roadmap <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></span>
+      </a>
+
+      <a class="blog-card" href="https://www.justacademy.co/blog-detail/10-tableau-dashboard-projects-for-beginners-to-build-a-strong-portfolio" target="_blank" rel="noopener">
+        <span class="eyebrow">Portfolio</span>
+        <h4>10 Tableau Dashboard Projects for Beginners to Build a Strong Portfolio</h4>
+        <span class="card-cta">See the projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></span>
+      </a>
+
+      <a class="blog-card" href="https://www.justacademy.co/blog-detail/power-bi-vs-tableau-which-data-visualization-tool-should-you-learn-in-2026" target="_blank" rel="noopener">
+        <span class="eyebrow">Full Comparison</span>
+        <h4>Power BI vs Tableau: The Complete 2026 Breakdown</h4>
+        <span class="card-cta">Read the full piece <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cta-band reveal">
+    <span class="eyebrow">Still on the fence?</span>
+    <h2>Both doors lead somewhere good. Just start walking.</h2>
+    <p>Pick the side that matches how you think right now. You can always learn the second tool later, once the first one has opened a door for you.</p>
+    <div class="hero-actions" style="margin-top:30px;">
+      <a href="https://www.justacademy.co/course-detail/mumbai/microsoft-power-bi-training-in-mumbai" class="btn primary" target="_blank" rel="noopener">Power BI Training →</a>
+      <a href="https://www.justacademy.co/course-detail/mumbai/tableau-training-in-mumbai" class="btn secondary" target="_blank" rel="noopener">Tableau Training →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand"><span class="brand-mark"></span>JustAcademy</a>
+        <p>ISO certified live interactive training across Mumbai, Pune, and online, for people deciding which data tool actually deserves their next few months.</p>
+      </div>
+      <div class="foot-col">
+        <span class="eyebrow">Courses</span>
+        <ul>
+          <li><a href="https://www.justacademy.co/course-detail/mumbai/microsoft-power-bi-training-in-mumbai" target="_blank" rel="noopener">Power BI Training</a></li>
+          <li><a href="https://www.justacademy.co/course-detail/mumbai/tableau-training-in-mumbai" target="_blank" rel="noopener">Tableau Training</a></li>
+          <li><a href="https://www.justacademy.co/course-detail/mumbai/figma-training-in-mumbai" target="_blank" rel="noopener">Figma Training</a></li>
+          <li><a href="https://www.justacademy.co/job-bootcamp-detail/mumbai/data-analytics-bootcamp-in-mumbai-classroom-training-with-real-world-projects" target="_blank" rel="noopener">Data Analytics Bootcamp</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <span class="eyebrow">Reads</span>
+        <ul>
+          <li><a href="https://www.justacademy.co/blog-detail/power-bi-developer-roadmap-2026-skills-required-to-become-a-data-analyst" target="_blank" rel="noopener">Power BI Roadmap 2026</a></li>
+          <li><a href="https://www.justacademy.co/blog-detail/10-tableau-dashboard-projects-for-beginners-to-build-a-strong-portfolio" target="_blank" rel="noopener">Tableau Dashboard Projects</a></li>
+          <li><a href="https://www.justacademy.co/blog-detail/power-bi-vs-tableau-which-data-visualization-tool-should-you-learn-in-2026" target="_blank" rel="noopener">Full Comparison Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 JustAcademy. Built for learners still deciding.</span>
+      <span>Mumbai · Pune · Live Online</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const items = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  items.forEach(i=>io.observe(i));
+
+  const sparklines = document.querySelector('.sparklines');
+  if(sparklines){
+    document.querySelector('.hero').addEventListener('mousemove', (e)=>{
+      const x = (e.clientX / window.innerWidth - 0.5) * 14;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      sparklines.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  }
+</script>
+
+</body>
+</html>
